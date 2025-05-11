@@ -1,0 +1,12 @@
+name: Deploy to staging 
+on: push:
+branches: - "main"
+
+jobs:
+redeploy_everything:
+name:Deploying everthing to the staging cluster
+
+steps:
+-name: SSH Into server
+-run:
+ssh -i ~/.ssh/id_rsa_do root@64.227.147.124
