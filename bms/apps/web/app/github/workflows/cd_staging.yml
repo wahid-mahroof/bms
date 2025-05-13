@@ -8,6 +8,13 @@ redeploy_everything:
 name: Deploying everything to the staging cluster
 
 steps:
-- name: SSH Into server
-- run:
- ssh -i keppait 2.2.2.2
+ name: SSH Into server
+ run:|
+ echo ${{ secrets.SSH_PRIVATE_KEY}} &> ~/ssh_key
+ ssh -i ~/ssh_key root@64.227.147.124
+ cd bms/ && git pull
+ pnpm install 
+ pnpm run build
+ pm2 restart fe-sever
+ pm2 restart http-sever
+ pm2 restart ws-sever
